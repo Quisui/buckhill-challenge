@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
+            $table->uuid('uuid')->unique()->index();
             $table->string('type')->comment('[credit_card, cash_on_delivery, bank_transfer]');
             $table->jsonb('details')->nullable();
             $table->timestamps();

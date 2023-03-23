@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
+            $table->uuid('uuid')->unique()->index();
             $table->uuid('order_status_id');
             $table->foreign('order_status_id')->references('uuid')->on('categories');
             $table->uuid('user_id');
