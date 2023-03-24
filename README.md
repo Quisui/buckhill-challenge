@@ -47,14 +47,21 @@ I've used the personal uuid trait:
   ... It is Needed.
 
 # JWT
-
 As the implementation requested I've implemented a basic JWT Auth system using use Firebase\JWT\JWT;
 - Helpers: I'm using a helper to make the functionality of the JWT handling: ➡ App\Helpers\TokenHelper
 - LoginController: Based only in a invoke function that attempts a login, saves the token on jwt_tokens, now you can use the token in your middle ware
     ➡ Testing was applied to the functionality
         ➡ Feature: tests/Feature/Api/V1/Auth/LoginControllerTest
         ➡ Unit: tests/unit/Api/V1/JWTAppTest - ensure the functionality of the helper
-
+- Middleware integration:
+    I've created my own jwt integration that i've been using through the years
+    ➡ Testing: tests/feature/Api/V1/Middlewares/AuthApiJWTTest - 3 tests
+    ➡ Integration:
+        1) **Configurations:** config/auth ➡ guards ➡ api = ['driver' => 'jwt',]
+        2) **Guard Registration:** App\Providers\AuthServiceProvider ➡ Auth::extend('jwt')
+        3) **Service That Check's Token Validation for guard:** App\Services\Api\V1\JWTAuth\JwtGuard
+        4) **Using Bearer Token:** as *'middleware' => ['auth:api']*
+        5) Note 🗒️: Remember to send your token: *Bearer* Token
 # Swagger 🍵 
 ### Swagger has been implemented for some of the endpoints - Just for the features that I did for the challenge 
 *I Didn't implement the whole document.*

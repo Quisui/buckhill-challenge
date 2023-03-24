@@ -25,6 +25,8 @@ class AuthRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
+            'is_admin' => ['required', 'boolean'],
+            'is_marketing' => ['required', 'boolean'],
         ];
     }
 }
