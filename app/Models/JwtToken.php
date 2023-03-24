@@ -10,9 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 class JwtToken extends Model
 {
     use HasFactory;
+    use Uuid;
+    protected $primaryKey = 'unique_id';
+    protected $uuidKey = 'unique_id';
+    public $incrementing = false;
 
     protected $fillable = [
-        'unique_id',
+        'user_id',
         'token_title',
         'restrictions',
         'permissions',

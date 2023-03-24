@@ -46,6 +46,15 @@ I've used the personal uuid trait:
     public $incrementing = false;
   ... It is Needed.
 
+# JWT
+
+As the implementation requested I've implemented a basic JWT Auth system using use Firebase\JWT\JWT;
+- Helpers: I'm using a helper to make the functionality of the JWT handling: ➡ App\Helpers\TokenHelper
+- LoginController: Based only in a invoke function that attempts a login, saves the token on jwt_tokens, now you can use the token in your middle ware
+    ➡ Testing was applied to the functionality
+        ➡ Feature: tests/Feature/Api/V1/Auth/LoginControllerTest
+        ➡ Unit: tests/unit/Api/V1/JWTAppTest - ensure the functionality of the helper
+
 # Swagger 🍵 
 ### Swagger has been implemented for some of the endpoints - Just for the features that I did for the challenge 
 *I Didn't implement the whole document.*
