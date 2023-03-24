@@ -36,5 +36,8 @@ jobs:
       env:
         APP_ENV: testing
         DB_CONNECTION: sqlite
+        JWT_SECRET: testKey_encode
+        JWT_ALGS: "HS256"
+        JWT_MAX_EXP_MINUTES: 60
         DB_DATABASE: database/database.sqlite
       run: php artisan test
