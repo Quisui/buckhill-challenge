@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Helpers\TokenHelper;
 use App\Traits\Uuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,4 +52,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function createJWT()
+    {
+        $token = TokenHelper::jwtEncode([
+            'user_id' => $this->uuid,
+            'iss' => config('app.url'),
+            'exp' => Carbon::now()->addMinutes(config('app.jwt_max_exp_minutes'))->getTimestamp(),
+        ]);
+        $tokenExpiry = Carbon::createFromTimestamp(TokenHelper::jwtDecode($token)->exp);
+
+        return [
+            'token' => $token,
+            'token_expiry_text' => $tokenExpiry->diffForHumans(),
+            'token_expiry_seconds' => $tokenExpiry->diffInSeconds(),
+        ];
+    }
+
+
+    public function scopeAvoidMe($query)
+    {
+        return $query->whereNotIn('uuid', [auth()->user()->uuid]);
+    }
 }

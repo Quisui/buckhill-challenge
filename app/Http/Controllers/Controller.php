@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TokenHelper;
+use App\Models\JwtToken;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -31,4 +34,20 @@ use OpenApi\Annotations as OA;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function storeJWT(string $token)
+    {
+        $tokenExpiry = Carbon::createFromTimestamp(TokenHelper::jwtDecode($token)->exp);
+        $userId = auth()->user()->uuid;
+
+        return JwtToken::create([
+            'user_id' => $userId,
+            'token_title' => 'auth',
+            'restrictions' => '{"restrictions": "*"}',
+            'permissions' => '{"permissions": "*"}',
+            'expires_at' => $tokenExpiry,
+            'last_used_at' => Carbon::now(),
+            'refreshed_at' => Carbon::now(),
+        ]);
+    }
 }

@@ -14,15 +14,185 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8085/api/v1/documentation",
+            "url": "http://localhost:8085/api/v1/",
             "description": "Demo API/V1 Server for challenge"
         }
     ],
     "paths": {
-        "/login": {
+        "/admin/create": {
+            "get": {
+                "tags": [
+                    "Admin/Auth"
+                ],
+                "summary": "Get all users",
+                "operationId": "44e5dd2de1c5a0b98c8ef53b60aa5f41",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
-                    "auth"
+                    "Admin/Auth"
+                ],
+                "summary": "Admin Create a new User",
+                "operationId": "c9c579c3cc5d3ca06720e2cbac77e304",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "first_name",
+                                    "last_name",
+                                    "is_admin",
+                                    "is_marketing"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "First Name"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "last Name"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "is_marketing": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "404": {
+                        "description": "Not created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/register/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Create a new User (not needed but here is it)",
+                "operationId": "f6e72fa6ac20caa96853d074abc80b0b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "First Name"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "last Name"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    },
+                                    "is_marketing": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "404": {
+                        "description": "Not created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin/Auth"
                 ],
                 "summary": "Sign in",
                 "description": "Login by email, password",
@@ -46,11 +216,7 @@
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "PassWord12345"
-                                    },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -59,6 +225,9 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
                     "422": {
                         "description": "Wrong credentials response",
                         "content": {
@@ -76,6 +245,16 @@
                         }
                     }
                 }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "description": "Bearer token authorization",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

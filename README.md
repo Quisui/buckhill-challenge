@@ -9,9 +9,10 @@
 7) change .env file APP_env = testing
 8) clear cache
 9) php artisan test
-10) change .env file App_env = local && composer dump-autoload
-11) clear cache
-12) now you can consume the api
+10) change .env file App_env = local && composer dump-autoload 
+11) php artisan l5-swagger:generate
+12) clear cache
+13) now you can consume the api
 # Docker file
 
 I've build a docker file that will contain all the app, as well a set of automated instructions for the docker compose file:
@@ -37,19 +38,28 @@ Check ➡ **App/Services/Api/V1/DocumentReader***
 # JWT
 As the implementation requested I've implemented a basic JWT Auth system using use Firebase\JWT\JWT;
 - Helpers: I'm using a helper to make the functionality of the JWT handling: ➡ App\Helpers\TokenHelper
-- LoginController: Based only in a invoke function that attempts a login, saves the token on jwt_tokens, now you can use the token in your middle ware
+- LoginController: Based only in a invoke function that attempts a login, saves the token on jwt_tokens, now you can use the token in your middleware<br>
     ➡ Testing was applied to the functionality<br>
         ➡ Feature: tests/Feature/Api/V1/Auth/LoginControllerTest<br>
         ➡ Unit: tests/unit/Api/V1/JWTAppTest - ensure the functionality of the helper<br>
-- Middleware integration:
+- 🌉 Middleware integration (Middleware protection):
+    ➡ For IsAdmin check: App/http/middleware/IsAdmin<br>
+        - Testing included: tests/feature/Api/V1/Middlewares/IsAdminTest<br>
+    ➡ For IsUser check: App/http/middleware/IsUser<br>
+        - this could contain is_marketing as well but just to ensure or to provide more functionality
+Finally this is registered in app/http/kernel  v protected $routeMiddleware 
+
+### General Protection - JWT Integration
     I've created my own jwt integration that i've been using through the years<br>
     ➡ Testing: tests/feature/Api/V1/Middlewares/AuthApiJWTTest - 3 tests
     ➡ Integration:<br>
-        1) **Configurations:** config/auth ➡ guards ➡ api = ['driver' => 'jwt',]<br>
+        1) **Configurations:** config/auth ➡ guards -> api = ['driver' => 'jwt',]<br>
         2) **Guard Registration:** App\Providers\AuthServiceProvider ➡ Auth::extend('jwt')<br>
         3) **Service That Check's Token Validation for guard:** App\Services\Api\V1\JWTAuth\JwtGuard<br>
         4) **Using Bearer Token:** as *'middleware' => ['auth:api']*<br>
         5) Note 🗒️: Remember to send your token: *Bearer* Token<br>
+### IsAdmin - Middleware
+
 # UUID
 I've used the personal uuid trait: 
 ### ➡ "traits/uuid"

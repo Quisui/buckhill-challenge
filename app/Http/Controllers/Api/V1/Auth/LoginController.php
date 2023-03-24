@@ -19,10 +19,30 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Handle a login request to the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     * @OA\Post(
+     * path="/admin/login",
+     * summary="Sign in",
+     * description="Login by email, password",
+     * operationId="authLogin",
+     * tags={"Admin/Auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
+     *       @OA\Property(property="password", type="string", format="password", example="password")
+     *    ),
+     * ),
+     * @OA\Response(response="200", description="Success"),
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong credentials response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
+     *        )
+     *     )
+     * )
      */
     public function __invoke(LoginRequest $request)
     {
@@ -75,22 +95,6 @@ class LoginController extends Controller
             'token' => $token,
             'token_expiry_text' => $tokenExpiry->diffForHumans(),
             'token_expiry_seconds' => $tokenExpiry->diffInSeconds(),
-        ]);
-    }
-
-    protected function storeJWT(string $token)
-    {
-        $tokenExpiry = Carbon::createFromTimestamp(TokenHelper::jwtDecode($token)->exp);
-        $userId = auth()->user()->uuid;
-
-        return JwtToken::create([
-            'user_id' => $userId,
-            'token_title' => 'auth',
-            'restrictions' => '{"restrictions": "*"}',
-            'permissions' => '{"permissions": "*"}',
-            'expires_at' => $tokenExpiry,
-            'last_used_at' => Carbon::now(),
-            'refreshed_at' => Carbon::now(),
         ]);
     }
 }

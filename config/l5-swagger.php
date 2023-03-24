@@ -153,6 +153,12 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'api_key' => [
+                    'type' => 'apiKey',
+                    'description' => 'Bearer token authorization',
+                    'name' => 'Authorization',
+                    'in' => 'header'
+                ]
                 /*
                  * Examples of Security schemes
                 */
@@ -197,7 +203,8 @@ return [
                     'name' => 'Authorization', // The name of the header or query parameter to be used.
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
-                */],
+                */
+            ],
             'security' => [
                 /*
                  * Examples of Securities
@@ -292,7 +299,7 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
-            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://localhost:8085/api/v1/documentation'),
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://localhost:8085/api/v1/'),
         ],
     ],
 ];
