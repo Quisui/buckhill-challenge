@@ -7,9 +7,9 @@
 5) docker compose up --build
 6) php artisan migrate:fresh --seed
 7) change .env file APP_env = testing
-8) clear cache
+8) run composer dump-autoload, next php artisan config:cache
 9) php artisan test
-10) change .env file App_env = local && composer dump-autoload 
+10) change .env file App_env = local && composer dump-autoload && php artisan config:cache
 11) php artisan l5-swagger:generate
 12) clear cache
 13) now you can consume the api
