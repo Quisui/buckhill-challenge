@@ -110,6 +110,11 @@ return [
 
     'faker_locale' => 'en_US',
 
+    'jwt_secret' => env('JWT_SECRET'),
+
+    'jwt_algs' => explode(',', env('JWT_ALGS', 'HS256')),
+
+    'jwt_max_exp_minutes' => env('JWT_MAX_EXP_MINUTES', 60),
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
