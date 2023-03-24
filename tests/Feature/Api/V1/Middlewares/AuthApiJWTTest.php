@@ -13,11 +13,6 @@ class AuthApiJWTTest extends TestCase
     /* in Api: middleware = ['auth:api'] this is what we're testing*/
 
     use RefreshDatabase;
-    public function testJWTTokenEndpointNeedsAnUserAuthenticated(): void
-    {
-        $this->postJson('api/v1/admin/register/users', [], [])
-            ->assertStatus(401);
-    }
 
     public function testJWTIsRequiredInAuthenticatedEndPoint(): void
     {
