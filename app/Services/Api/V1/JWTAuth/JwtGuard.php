@@ -3,11 +3,13 @@
 namespace App\Services\Api\V1\JWTAuth;
 
 use App\Helpers\TokenHelper;
+use App\Models\JwtToken;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard as AuthGuard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Traits\Macroable;
 
 class JwtGuard implements AuthGuard
@@ -59,6 +61,7 @@ class JwtGuard implements AuthGuard
 
         try {
             $token = TokenHelper::jwtDecode($token);
+            $this->validateStoredJWTExpiredTime($token);
         } catch (\Firebase\JWT\ExpiredException $e) {
             return null; // Laravel will return a 401 Unauthenticated.
         } catch (\Firebase\JWT\SignatureInvalidException $e) {
@@ -106,5 +109,23 @@ class JwtGuard implements AuthGuard
         }
 
         return false;
+    }
+
+
+    /*
+    * Verify That the stored token is still valid so we can still use this same token,
+    *
+    * If not Log out the user
+    */
+    public function validateStoredJWTExpiredTime($token)
+    {
+        $storedToken = JwtToken::with('user')->currentUser($token->user_id)->first();
+        if (!app()->environment('testing')) {
+            if ($storedToken->isExpired()) {
+                abort(Response::HTTP_UNAUTHORIZED, 'Token expired, please renew your jwt');
+            }
+        }
+
+        return true;
     }
 }
