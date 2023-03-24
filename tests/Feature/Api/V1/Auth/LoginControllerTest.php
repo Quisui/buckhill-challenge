@@ -13,14 +13,14 @@ class LoginControllerTest extends TestCase
 
     public function testMissingValuesInLoginRequest(): void
     {
-        $this->postJson('api/v1/auth/login', [])
+        $this->postJson('api/v1/admin/login', [])
             ->assertInvalid(['email', 'password']);
     }
 
 
     public function testUserCanLoginWithCorrectCredentials()
     {
-        $response = $this->postJson('api/v1/auth/login', [
+        $response = $this->postJson('api/v1/admin/login', [
             'email' => $this->buckHillAdmin->email,
             'password' => 'admin',
         ]);
@@ -33,7 +33,7 @@ class LoginControllerTest extends TestCase
 
     public function testUserCannotLoginWithIncorrectCredentials()
     {
-        $response = $this->postJson('api/v1/auth/login', [
+        $response = $this->postJson('api/v1/admin/login', [
             'email' => $this->user->email,
             'password' => 'not_correct_password',
         ]);

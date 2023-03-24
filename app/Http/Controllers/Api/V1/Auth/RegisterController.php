@@ -14,6 +14,7 @@ class RegisterController extends Controller
 {
     public function __invoke(AuthRequest $request)
     {
+        return User::all();
         $user = User::create([
             'name' => $request->validated('name'),
             'email' => $request->validated('email'),
