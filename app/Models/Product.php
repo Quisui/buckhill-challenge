@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory, Uuid;
+    public $incrementing = false;
 
     protected $primaryKey = 'uuid';
     protected $uuidKey = 'uuid';
-    public $incrementing = false;
 
     protected $fillable = [
         'category_uuid',
         'title',
         'price',
         'description',
-        'metadata'
+        'metadata',
     ];
 }

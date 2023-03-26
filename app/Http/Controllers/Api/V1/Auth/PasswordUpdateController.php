@@ -22,7 +22,7 @@ class PasswordUpdateController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Your password has been updated.'
+            'message' => 'Your password has been updated.',
         ], Response::HTTP_ACCEPTED);
     }
 }

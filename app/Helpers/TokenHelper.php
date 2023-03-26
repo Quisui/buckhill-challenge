@@ -10,7 +10,7 @@ class TokenHelper
 {
     public static function jwtEncode($payload)
     {
-        if (!isset($payload['exp'])) {
+        if (! isset($payload['exp'])) {
             $hours = config('confirmation_tokens.exp_hours');
             $payload['exp'] = strtotime("+{$hours} hours");
         }

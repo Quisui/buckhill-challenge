@@ -5,14 +5,8 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Helpers\TokenHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
-use App\Models\JwtToken;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -73,13 +67,14 @@ class LoginController extends Controller
      * Override from AuthenticatesUsers.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function sendLoginResponse(LoginRequest $request)
     {
         $this->clearLoginAttempts($request);
         $user = $this->guard()->user();
-        $device  = substr($request->userAgent() ?? '', 0, 255);
+        $device = substr($request->userAgent() ?? '', 0, 255);
         $token = TokenHelper::jwtEncode([
             'user_id' => $user->uuid,
             'device' => $device,

@@ -16,9 +16,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use Uuid;
+    public $incrementing = false;
     protected $primaryKey = 'uuid';
     protected $uuidKey = 'uuid';
-    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -68,7 +68,6 @@ class User extends Authenticatable
             'token_expiry_seconds' => $tokenExpiry->diffInSeconds(),
         ];
     }
-
 
     public function scopeAvoidMe($query)
     {

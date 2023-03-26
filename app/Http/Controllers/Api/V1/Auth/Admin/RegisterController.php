@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Auth\Admin;
 
-use App\Helpers\TokenHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\AuthRequest;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-
     /**
      * @OA\Post(
      *     path="/register/users",

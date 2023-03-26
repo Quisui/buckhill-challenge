@@ -9,11 +9,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Quisui\OrderBasicNotification\NotificationOrderStatusUpdater;
 
 class UserController extends Controller
 {
-
     /**
      * @OA\Get(
      *     path="/admin/create",
@@ -92,7 +90,6 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -100,7 +97,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -108,6 +104,5 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }
