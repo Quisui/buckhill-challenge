@@ -24,6 +24,13 @@ I've build a docker file that will contain all the app, as well a set of automat
 ### Trigger branches currently [master | dev]
 As you can see i've done automated deployments and testing on my repo, so in case that we need to push the image to production anything will be tested before the push, if a test fails the whole deployment will not be deployed. (github actions = .github/workflows)
 
+# L4 Challenge Package
+So I've build the package that will send a webhook notification for the order status:
+My package's name is: [quisui/order-basic-notification](https://github.com/Quisui/order-basic-notification)
+To use it on this or other projects you need to run:
+> composer require quisui/order-basic-notification
+
+Check package to see how's implemented in this project: [read](https://github.com/Quisui/order-basic-notification)
 # Testing
 ## Feature
 - Applied for the features completed for this challenge
