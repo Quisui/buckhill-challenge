@@ -29,7 +29,6 @@ use OpenApi\Annotations as OA;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API/V1 Server for challenge"
  * )
- *
  */
 class Controller extends BaseController
 {

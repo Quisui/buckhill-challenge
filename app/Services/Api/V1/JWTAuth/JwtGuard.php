@@ -5,7 +5,6 @@ namespace App\Services\Api\V1\JWTAuth;
 use App\Helpers\TokenHelper;
 use App\Models\JwtToken;
 use Illuminate\Auth\GuardHelpers;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard as AuthGuard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
@@ -28,6 +27,7 @@ class JwtGuard implements AuthGuard
      *
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return void
      */
     public function __construct(UserProvider $provider, Request $request)
@@ -36,55 +36,21 @@ class JwtGuard implements AuthGuard
         $this->provider = $provider;
     }
 
-    /**
-     * Get the currently authenticated user.
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     *
-     * @throws \UnexpectedValueException
-     */
     public function user()
     {
         if ($this->user) {
             return $this->user;
         }
 
-        $request = request();
-        $token = $request->token ?? $request->bearerToken();
-        if (!$token) {
-            if (env('APP_DEBUG')) {
-                throw new \UnexpectedValueException('Missing token. Please provide Bearer Authorization via header, or via "token" parameter.');
-            } else {
-                return null; // Laravel will return a 401 Unauthenticated.
-            }
+        $token = $this->getTokenFromRequest();
+
+        if (! $token) {
+            $this->handleMissingToken();
         }
 
-        try {
-            $token = TokenHelper::jwtDecode($token);
-            $this->validateStoredJWTExpiredTime($token);
-        } catch (\Firebase\JWT\ExpiredException $e) {
-            return null; // Laravel will return a 401 Unauthenticated.
-        } catch (\Firebase\JWT\SignatureInvalidException $e) {
-            if (app()->environment('testing')) {
-                return throw $e;
-            }
-            return null; // Laravel will return a 401 Unauthenticated.
-        } catch (\DomainException | \InvalidArgumentException | \UnexpectedValueException $e) {
-            if (env('APP_DEBUG')) {
-                throw $e;
-            } else {
-                \Log::error($e);
+        $token = $this->validateToken($token);
 
-                return null; // Laravel will return a 401 Unauthenticated.
-            }
-        }
-
-        // enforce short-lived tokens
-        $maxMinutes = config('app.jwt_max_exp_minutes');
-        if ($token->exp > strtotime("+$maxMinutes minutes")) {
-            $validMinutes = \Carbon\Carbon::createFromTimestamp($token->exp)->diffInMinutes();
-            throw new \UnexpectedValueException('Token exceeds maximum lifetime. Token is valid for ' . $validMinutes . ' minutes, but max lifetime is ' . $maxMinutes . ' minutes.');
-        }
+        $this->enforceShortLivedTokens($token);
 
         $this->token = $token;
         $this->user = $this->provider->retrieveByCredentials(['uuid' => $token->user_id]);
@@ -96,6 +62,7 @@ class JwtGuard implements AuthGuard
      * Validate a user's credentials.
      *
      * @param  array  $credentials
+     *
      * @return bool
      */
     public function validate(array $credentials = [])
@@ -111,7 +78,6 @@ class JwtGuard implements AuthGuard
         return false;
     }
 
-
     /*
     * Verify That the stored token is still valid so we can still use this same token,
     *
@@ -120,12 +86,58 @@ class JwtGuard implements AuthGuard
     public function validateStoredJWTExpiredTime($token)
     {
         $storedToken = JwtToken::with('user')->currentUser($token->user_id)->first();
-        if (!app()->environment('testing')) {
+        if (! app()->environment('testing')) {
             if ($storedToken->isExpired()) {
                 abort(Response::HTTP_UNAUTHORIZED, 'Token expired, please renew your jwt');
             }
         }
 
         return true;
+    }
+
+    private function getTokenFromRequest()
+    {
+        $request = request();
+        return $request->token ?? $request->bearerToken();
+    }
+
+    private function handleMissingToken()
+    {
+        if (env('APP_DEBUG')) {
+            throw new \UnexpectedValueException('Missing token. Please provide Bearer Authorization via header, or via "token" parameter.');
+        }
+
+        return null; // Laravel will return a 401 Unauthenticated.
+    }
+
+    private function validateToken($token)
+    {
+        try {
+            $decodedToken = TokenHelper::jwtDecode($token);
+            $this->validateStoredJWTExpiredTime($decodedToken);
+            return $decodedToken;
+        } catch (\Firebase\JWT\ExpiredException $e) {
+            return null; // Laravel will return a 401 Unauthenticated.
+        } catch (\Firebase\JWT\SignatureInvalidException $e) {
+            if (app()->environment('testing')) {
+                return throw $e;
+            }
+            return null; // Laravel will return a 401 Unauthenticated.
+        } catch (\DomainException | \InvalidArgumentException | \UnexpectedValueException $e) {
+            if (env('APP_DEBUG')) {
+                throw $e;
+            }
+            \Log::error($e);
+            return null; // Laravel will return a 401 Unauthenticated.
+        }
+    }
+
+    private function enforceShortLivedTokens($token)
+    {
+        $maxMinutes = config('app.jwt_max_exp_minutes');
+        if ($token->exp > strtotime("+{$maxMinutes} minutes")) {
+            $validMinutes = \Carbon\Carbon::createFromTimestamp($token->exp)->diffInMinutes();
+            throw new \UnexpectedValueException('Token exceeds maximum lifetime. Token is valid for ' . $validMinutes . ' minutes, but max lifetime is ' . $maxMinutes . ' minutes.');
+        }
     }
 }

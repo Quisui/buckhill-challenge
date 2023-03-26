@@ -2,9 +2,7 @@
 
 namespace App\Services\Api\V1\DocumentReader;
 
-use App\Services\Api\V1\DocumentReader\DocumentInterface;
-
-class TestTypeFile implements DocumentInterface
+class TestTypeFile implements Document
 {
     public function readFile($file, ...$options)
     {

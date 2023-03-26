@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory, Uuid;
+    public $incrementing = false;
 
     protected $primaryKey = 'uuid';
     protected $uuidKey = 'uuid';
-    public $incrementing = false;
 
     protected $fillable = [
         'name',
         'path',
         'size',
-        'type'
+        'type',
     ];
 }

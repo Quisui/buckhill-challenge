@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory, Uuid;
+    public $incrementing = false;
 
     protected $primaryKey = 'uuid';
     protected $uuidKey = 'uuid';
-    public $incrementing = false;
 
     protected $fillable = [
         'payment_id',
@@ -22,6 +22,6 @@ class Order extends Model
         'products',
         'address',
         'delivery_fee',
-        'amount'
+        'amount',
     ];
 }

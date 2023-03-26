@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\Auth\Admin\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('admin/login', LoginController::class);
 
-Route::group(["middleware" => ['auth:api']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
         Route::post('register/users', RegisterController::class);
         Route::apiResource('create', UserController::class);

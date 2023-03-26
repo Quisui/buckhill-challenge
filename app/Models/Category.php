@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory, Uuid;
+    public $incrementing = false;
 
     protected $primaryKey = 'uuid';
     protected $uuidKey = 'uuid';
-    public $incrementing = false;
 
     protected $fillable = [
         'title',
-        'slug'
+        'slug',
     ];
 }

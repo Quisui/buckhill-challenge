@@ -15,29 +15,28 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Promotion  $promotion
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Promotion $promotion)
     {
-        //
     }
 
     /**
@@ -45,21 +44,21 @@ class PromotionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Promotion  $promotion
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Promotion $promotion)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Promotion  $promotion
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Promotion $promotion)
     {
-        //
     }
 }

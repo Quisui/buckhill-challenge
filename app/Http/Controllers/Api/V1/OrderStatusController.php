@@ -15,29 +15,28 @@ class OrderStatusController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\OrderStatus  $orderStatus
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(OrderStatus $orderStatus)
     {
-        //
     }
 
     /**
@@ -45,21 +44,21 @@ class OrderStatusController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\OrderStatus  $orderStatus
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, OrderStatus $orderStatus)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\OrderStatus  $orderStatus
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(OrderStatus $orderStatus)
     {
-        //
     }
 }
