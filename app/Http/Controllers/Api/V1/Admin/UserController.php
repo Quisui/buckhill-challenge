@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Quisui\OrderBasicNotification\NotificationOrderStatusUpdater;
 
 class UserController extends Controller
 {
@@ -25,7 +26,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::avoidMe()->get();
+        $users = User::avoidMe()->whereIn('is_admin', [true, false])->get();
+        $admins = $users->filter(function ($user) {
+            return $user->is_admin;
+        });
+
+        $nonAdmins = $users->reject(function ($user) {
+            return $user->is_admin;
+        });
+
+        return ['admins' => $admins->values(), 'users' => $nonAdmins->values()];
     }
 
     /**

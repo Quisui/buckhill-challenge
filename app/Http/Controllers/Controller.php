@@ -40,6 +40,7 @@ class Controller extends BaseController
         $tokenExpiry = Carbon::createFromTimestamp(TokenHelper::jwtDecode($token)->exp);
         $userId = auth()->user()->uuid;
 
+        JwtToken::where('user_id', $userId)->delete();
         return JwtToken::create([
             'user_id' => $userId,
             'token_title' => 'auth',
