@@ -30,6 +30,15 @@ My package's name is: [quisui/order-basic-notification](https://github.com/Quisu
 To use it on this or other projects you need to run:
 > composer require quisui/order-basic-notification
 
+# PHP insights <br>
+<img width="536" alt="image" src="https://user-images.githubusercontent.com/22399803/227785741-a04886ef-2e90-4e84-b388-2a51a252a180.png"> <br>
+
+At this moment the provided score with this package [nunomaduro/phpinsights](https://github.com/nunomaduro/phpinsights)
+
+And the provided [rules](https://github.com/Quisui/buckhill-challenge/blob/develop/config/insights.php) from the challenge<br>
+
+
+
 Check package to see how's implemented in this project: [read](https://github.com/Quisui/order-basic-notification)
 # Testing
 ## Feature
