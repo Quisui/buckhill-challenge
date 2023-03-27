@@ -15,7 +15,6 @@
         "laravel/ui": "^4.2",
         "quisui/order-basic-notification": "^0.0.1"
     },
-    "repositories": [ { "type": "path", "url": "packages/quisui/order-basic-notification", "options": { "symlink": true } } ],
     "require-dev": {
         "doctrine/dbal": "^3.0",
         "fakerphp/faker": "^1.9.1",
