@@ -9,12 +9,18 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/product",
+     *     summary="Get all products",
+     *     tags={"Products"},
+     *     security={{"api_key": {}}},
+     *     @OA\Response(response="200", description="Success"),
+     *     @OA\Response(response="401", description="Unauthorized"),
+     * )
      */
     public function index()
     {
+        return Product::with('category')->get();
     }
 
     /**

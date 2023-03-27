@@ -17,6 +17,10 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        Order::factory(1000)->create();
+        $user = User::where('email', 'admin@buckhill.co.uk')->first();
+        Order::factory(700)->create();
+        Order::factory(2)->create([
+            'user_id' => $user->uuid,
+        ]);
     }
 }

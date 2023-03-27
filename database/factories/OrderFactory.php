@@ -21,24 +21,33 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-        $users = User::where('id', rand(1, 100))->first();
-        $orderStatus = OrderStatus::all();
-        $orderStatusPicked = $orderStatus->random();
-        $payment = Payment::where('id', rand(1, 50))->first();
-        $product = Product::where('id', rand(1, 500))->first();
-        $statusTitle = ['open' => 'open', 'pending_payment' => 'pending_payment', 'cancelled' => 'cancelled'];
 
-        return [
-            'user_id' => $users->uuid,
-            'order_status_id' => $orderStatusPicked->uuid,
-            'payment_id' => isset($statusTitle[$orderStatusPicked->title]) ? null : $payment->uuid,
-            'products' => json_encode([
-                'product' => $product->uuid,
-                'quantity' => rand(1, 5)
-            ]),
-            'address' => null,
-            'delivery_fee' => $this->faker->randomFloat(2, 0, 50),
-            'amount' => $this->faker->randomFloat(2, 10, 100),
-        ];
+        if (!app()->environment('testing')) {
+            $users = User::where('id', rand(1, 100))->first();
+            $orderStatus = OrderStatus::all();
+            $orderStatusPicked = $orderStatus->random();
+            $payment = Payment::where('id', rand(1, 50))->first();
+
+            $statusTitle = ['open' => 'open', 'pending_payment' => 'pending_payment', 'cancelled' => 'cancelled'];
+            $products = [];
+            for ($i = 0; $i < rand(1, 2); $i++) {
+                $product = Product::where('id', rand(1, 500))->first();
+                $products[] = [
+                    'product' => $product->uuid,
+                    'quantity' => rand(1, 5)
+                ];
+            }
+            return [
+                'user_id' => $users->uuid,
+                'order_status_id' => $orderStatusPicked->uuid,
+                'payment_id' => isset($statusTitle[$orderStatusPicked->title]) ? null : $payment->uuid,
+                'products' => json_encode($products),
+                'address' => null,
+                'delivery_fee' => $this->faker->randomFloat(2, 0, 50),
+                'amount' => $this->faker->randomFloat(2, 10, 100),
+            ];
+        }
+
+        return [];
     }
 }

@@ -108,7 +108,7 @@ Finally this is registered in [app/http/kernel](https://github.com/Quisui/buckhi
     $this->call(ProductSeeder::class); <br>
     $this->call(OrderStatusSeeder::class); <br>
     $this->call(OrderSeeder::class); <br>
-- ## Third **[Factories](https://github.com/Quisui/buckhill-challenge/tree/develop/database/factories)** <br>
+- ## **Third** **[Factories](https://github.com/Quisui/buckhill-challenge/tree/develop/database/factories)** <br>
     
 # UUID
 I've used the personal uuid trait: 
