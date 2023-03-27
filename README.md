@@ -36,6 +36,12 @@ So as the challenge requirements the package was integrated to an observer like 
 ### **OrderObserver**
 Any time that an order controller updates an order and the respective checks do their job, and the status order has been changed, we'll send a webhook to specific url.
 
+Check **[Order Controller]** for logic implementation
+
+### **Testing for this controller and possible bugs**
+
+I've implemented testing for the order controller to ensure the whole functionality, I didn't tested the package here because that's why we test the package before
+
 # PHP insights <br>
 <img width="536" alt="image" src="https://user-images.githubusercontent.com/22399803/227785741-a04886ef-2e90-4e84-b388-2a51a252a180.png"> <br>
 

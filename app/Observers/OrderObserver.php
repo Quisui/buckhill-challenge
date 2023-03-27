@@ -28,7 +28,7 @@ class OrderObserver
             new NotificationOrderStatusUpdater([
                 'order_uuid' => $order->uuid,
                 'new_status' => $orderStatus->title,
-                'message' => 'Order Status Has changed',
+                'message' => 'Order Status Has changed to: ' . $orderStatus->title,
                 'timestamp' => Carbon::now(),
                 'webhook_url' => config('app.webhook_challenge_url'),
                 'webhook_http_method' => 'post'
