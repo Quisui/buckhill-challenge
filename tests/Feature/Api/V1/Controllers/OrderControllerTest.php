@@ -115,4 +115,47 @@ class OrderControllerTest extends TestCase
             ->assertJsonFragment(['user_id' => $data['user_id']])
             ->assertJsonFragment(['order_status' => $this->orderStatus->title]);
     }
+
+    public function testUserCanGetProducts()
+    {
+        $this->orderControllerTestDefaultFactorySetup();
+        $this->actingAs($this->user)->getJson('/api/v1/product',  [
+            'Accept' => "application/json",
+            'Authorization' => 'Bearer ' . $this->jwtUserToken
+        ])
+            ->assertStatus(200);
+    }
+
+    public function testUserCanDeleteAnOrder()
+    {
+        $this->orderControllerTestDefaultFactorySetup();
+        $this->actingAs($this->user)->deleteJson('/api/v1/order/' . $this->userOrder->uuid, [], [
+            'Accept' => "application/json",
+            'Authorization' => 'Bearer ' . $this->jwtUserToken
+        ])
+            ->assertStatus(204);
+    }
+
+    public function testUserCanUpdateAnOrder()
+    {
+        $this->orderControllerTestDefaultFactorySetup();
+        $orderStatus = OrderStatus::factory()->create(['title' => 'shipped']);
+        $data = [
+            "order_status_id"  =>  $orderStatus->uuid,
+            'user_id' => $this->user->uuid,
+            "products"  =>  [
+                $this->product->toArray()
+            ],
+            'delivery_fee' => $this->faker->randomFloat(2, 0, 50),
+            'amount' => $this->faker->randomFloat(2, 10, 100),
+        ];
+
+        $this->actingAs($this->user)->putJson('/api/v1/order/' . $this->userOrder->uuid, $data, [
+            'Accept' => "application/json",
+            'Authorization' => 'Bearer ' . $this->jwtUserToken
+        ])
+            ->assertStatus(202)
+            ->assertJsonStructure(['uuid', 'order_status'])
+            ->assertJsonFragment(['order_status' => 'shipped']);
+    }
 }

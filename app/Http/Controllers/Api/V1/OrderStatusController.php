@@ -9,12 +9,18 @@ use Illuminate\Http\Request;
 class OrderStatusController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/order-status",
+     *     summary="Get all order statuses",
+     *     tags={"Orders statuses"},
+     *     security={{"api_key": {}}},
+     *     @OA\Response(response="200", description="Success"),
+     *     @OA\Response(response="401", description="Unauthorized"),
+     * )
      */
     public function index()
     {
+        return OrderStatus::all();
     }
 
     /**

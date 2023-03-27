@@ -542,6 +542,129 @@
                         "api_key": []
                     }
                 ]
+            },
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update an new Order",
+                "operationId": "924bbeaa3cb2f4bce7a60e8aaa8df0f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order (UUID)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order_status_id": {
+                                        "type": "uuid"
+                                    },
+                                    "products": {
+                                        "type": "object",
+                                        "example": "[{'product': 'product_uuid', 'quantity': '1'}]"
+                                    },
+                                    "delivery_fee": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "22.5"
+                                    },
+                                    "amount": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Order created successfully"
+                    },
+                    "202": {
+                        "description": "Order created successfully"
+                    },
+                    "404": {
+                        "description": "Not created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Delete an order by ID",
+                "operationId": "7ef04f8b8e757fa714f4a21d7901904a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order (UUID)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/order-status": {
+            "get": {
+                "tags": [
+                    "Orders statuses"
+                ],
+                "summary": "Get all order statuses",
+                "operationId": "ad6a9300447e2de65bf357efdc983c8d",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
             }
         },
         "/product": {

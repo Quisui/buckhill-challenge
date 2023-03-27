@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\PasswordUpdateController as AuthPasswordUpdateController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OrderStatusController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
     Route::apiResource('order', OrderController::class);
     Route::apiResource('product', ProductController::class);
+    Route::apiResource('order-status', OrderStatusController::class);
 });
