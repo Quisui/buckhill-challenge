@@ -24,8 +24,8 @@ class LoginController extends Controller
      *    description="Pass user credentials",
      *    @OA\JsonContent(
      *       required={"email","password"},
-     *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
-     *       @OA\Property(property="password", type="string", format="password", example="password")
+     *       @OA\Property(property="email", type="string", format="email", example="admin@buckhill.co.uk"),
+     *       @OA\Property(property="password", type="string", format="password", example="admin")
      *    ),
      * ),
      * @OA\Response(response="200", description="Success"),

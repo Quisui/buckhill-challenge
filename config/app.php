@@ -115,6 +115,8 @@ return [
     'jwt_algs' => explode(',', env('JWT_ALGS', 'HS256')),
 
     'jwt_max_exp_minutes' => env('JWT_MAX_EXP_MINUTES', 60),
+
+    'webhook_challenge_url' => env('WEBHOOK_URL', 'http://webhook.site/81872e1a-5b97-4a0d-b32a-55365cc1b774'),
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
