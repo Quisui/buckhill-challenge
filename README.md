@@ -79,24 +79,24 @@ I've created my own jwt integration that i've been using through the years<br>
 Finally this is registered in [app/http/kernel](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Http/Kernel.php) -> protected $routeMiddleware 
 # Model Relations at this moment: <br>
 [User model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/User.php): <br>
-    has many Order models <br>
+    - has many Order models <br>
 [JWTToken Model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/JwtToken.php): <br>
-    belongs to User Model <br>
+    - belongs to User Model <br>
 [Order model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Order.php): <br>
-    belongs to User model <br>
-    belongs to OrderStatus model <br>
-    belongs to Payment model <br>
-    has many Product query through jsonb <br>
+    - belongs to User model <br>
+    - belongs to OrderStatus model <br>
+    - belongs to Payment model <br>
+    - has many Product query through jsonb <br>
 [Payment model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Payment.php): <br>
-    has many Order models <br>
-    belongs to User model <br>
+    - has many Order models <br>
+    - belongs to User model <br>
 [Product model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Product.php): <br>
-    belongs to Category model <br>
-    has many Order models through wher In <br>
+    - belongs to Category model <br>
+    - has many Order models through wher In <br>
 [Category model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Category.php): <br>
-    belongs to product <br>
+    - belongs to product <br>
 [OrderStatus model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/OrderStatus.php): <br>
-    has many Order models <br>
+    - has many Order models <br>
 # [Migrations](https://github.com/Quisui/buckhill-challenge/tree/develop/database/migrations)
 - First step we are going to check the migrations following the structure provided on the challenge
 ![image](https://user-images.githubusercontent.com/22399803/227690277-19cb7291-4dd9-4ee3-b8ae-cfed1835d6b1.png)
