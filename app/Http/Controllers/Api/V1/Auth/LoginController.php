@@ -16,7 +16,7 @@ class LoginController extends Controller
      * @OA\Post(
      * path="/admin/login",
      * summary="Sign in",
-     * description="Login by email, password",
+     * description="Login by email, password, both user and admin uses this endpoint so te behavior will change just on the route name, remember, you need to send your bearer token",
      * operationId="authLogin",
      * tags={"Admin/Auth"},
      * @OA\RequestBody(
