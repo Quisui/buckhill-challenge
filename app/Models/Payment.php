@@ -18,4 +18,9 @@ class Payment extends Model
         'type',
         'details',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

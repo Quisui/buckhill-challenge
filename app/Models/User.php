@@ -73,4 +73,14 @@ class User extends Authenticatable
     {
         return $query->whereNotIn('uuid', [auth()->user()->uuid]);
     }
+
+    public function jwtTokens()
+    {
+        return $this->hasMany(JwtToken::class, 'user_id', 'uuid');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

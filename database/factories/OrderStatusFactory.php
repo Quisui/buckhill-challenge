@@ -16,8 +16,10 @@ class OrderStatusFactory extends Factory
      */
     public function definition()
     {
+        $statusTitle = ['open', 'pending_payment', 'paid', 'shipped', 'cancelled'];
+
         return [
-            //
+            'title' => $statusTitle[rand(0, 4)],
         ];
     }
 }

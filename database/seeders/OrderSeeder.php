@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order;
+use App\Models\OrderStatus;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +17,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Order::factory(1000)->create();
     }
 }

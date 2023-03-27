@@ -16,8 +16,14 @@ class PaymentFactory extends Factory
      */
     public function definition()
     {
+        $type = [
+            'credit_card',
+            'cash_on_delivery',
+            'bank_transfer',
+        ];
         return [
-            //
+            'type' => $type[rand(0, 2)],
+            'details' => null
         ];
     }
 }

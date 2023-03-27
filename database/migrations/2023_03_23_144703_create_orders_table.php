@@ -18,14 +18,14 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->index();
             $table->uuid('order_status_id');
-            $table->foreign('order_status_id')->references('uuid')->on('categories');
+            $table->foreign('order_status_id')->references('uuid')->on('order_statuses');
             $table->uuid('user_id');
             $table->foreign('user_id')->references('uuid')->on('users');
-            $table->uuid('payment_id');
+            $table->uuid('payment_id')->nullable();
             $table->foreign('payment_id')->references('uuid')->on('payments');
             $table->jsonb('products')->nullable();
             $table->jsonb('address')->nullable();
-            $table->float('deliery_fee', 8, 2)->nullable();
+            $table->float('delivery_fee', 8, 2)->nullable();
             $table->float('amount', 8, 2);
             $table->timestamps();
             $table->dateTime('shipped_at')->nullable();
