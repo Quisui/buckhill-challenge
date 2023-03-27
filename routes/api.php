@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Admin\UserController;
+use App\Http\Controllers\Api\V1\Auth\Admin\PasswordUpdateController;
 use App\Http\Controllers\Api\V1\Auth\Admin\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
-use App\Http\Controllers\Api\V1\Auth\Admin\PasswordUpdateController;
 use App\Http\Controllers\Api\V1\Auth\PasswordUpdateController as AuthPasswordUpdateController;
 use Illuminate\Support\Facades\Route;
 

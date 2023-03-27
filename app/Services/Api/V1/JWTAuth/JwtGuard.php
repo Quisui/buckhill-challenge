@@ -90,7 +90,6 @@ class JwtGuard implements AuthGuard
     {
         $storedToken = JwtToken::with('user')->currentUser($token->user_id)->first();
         if (!app()->environment('testing')) {
-
             if (empty($storedToken)) {
                 return null;
             }

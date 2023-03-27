@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\JwtToken;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LogoutController extends Controller
@@ -37,8 +36,8 @@ class LogoutController extends Controller
      *        )
      *     )
      * ),
-     * @OA\Response(response="500", description="Missing token"),
      *
+     * @OA\Response(response="500", description="Missing token"),
      */
     public function __invoke(Request $request)
     {
