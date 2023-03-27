@@ -77,38 +77,38 @@ I've created my own jwt integration that i've been using through the years<br>
     ➡ For IsUser check: App/http/middleware/IsUser <br>
         - this could contain is_marketing as well but just to ensure or to provide more functionality <br>
 Finally this is registered in [app/http/kernel](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Http/Kernel.php) -> protected $routeMiddleware 
-# Model Relations at this moment:
-User model:
-    has many Order models
-JWTToken Model:
-    belongs to User Model
-Order model:
-    belongs to User model
-    belongs to OrderStatus model
-    belongs to Payment model
-    has many Product query through jsonb
-Payment model:
-    has many Order models
-    belongs to User model
-Product model:
-    belongs to Category model
-    has many Order models through wher In
-Category model:
-    belongs to product
-OrderStatus model:
-    has many Order models
+# Model Relations at this moment: <br>
+[User model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/User.php): <br>
+    has many Order models <br>
+[JWTToken Model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/JwtToken.php): <br>
+    belongs to User Model <br>
+[Order model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Order.php): <br>
+    belongs to User model <br>
+    belongs to OrderStatus model <br>
+    belongs to Payment model <br>
+    has many Product query through jsonb <br>
+[Payment model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Payment.php): <br>
+    has many Order models <br>
+    belongs to User model <br>
+[Product model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Product.php): <br>
+    belongs to Category model <br>
+    has many Order models through wher In <br>
+[Category model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/Category.php): <br>
+    belongs to product <br>
+[OrderStatus model](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Models/OrderStatus.php): <br>
+    has many Order models <br>
 # [Migrations](https://github.com/Quisui/buckhill-challenge/tree/develop/database/migrations)
 - First step we are going to check the migrations following the structure provided on the challenge
 ![image](https://user-images.githubusercontent.com/22399803/227690277-19cb7291-4dd9-4ee3-b8ae-cfed1835d6b1.png)
-- Second **[Seeders](https://github.com/Quisui/buckhill-challenge/tree/develop/database/seeders)**
-  Currently not using all of them: 
-    $this->call(PaymentSeeder::class);
-    $this->call(UserSeeder::class);
-    $this->call(CategorySeeder::class);
-    $this->call(ProductSeeder::class);
-    $this->call(OrderStatusSeeder::class);
-    $this->call(OrderSeeder::class);
-- Third **[Factories](https://github.com/Quisui/buckhill-challenge/tree/develop/database/factories)**
+- ## **Second** **[Seeders](https://github.com/Quisui/buckhill-challenge/tree/develop/database/seeders)** <br>
+  Currently not using all of them: <br>
+    $this->call(PaymentSeeder::class); <br>
+    $this->call(UserSeeder::class); <br>
+    $this->call(CategorySeeder::class); <br>
+    $this->call(ProductSeeder::class); <br>
+    $this->call(OrderStatusSeeder::class); <br>
+    $this->call(OrderSeeder::class); <br>
+- ## Third **[Factories](https://github.com/Quisui/buckhill-challenge/tree/develop/database/factories)** <br>
     
 # UUID
 I've used the personal uuid trait: 
