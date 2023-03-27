@@ -77,15 +77,38 @@ I've created my own jwt integration that i've been using through the years<br>
     ➡ For IsUser check: App/http/middleware/IsUser <br>
         - this could contain is_marketing as well but just to ensure or to provide more functionality <br>
 Finally this is registered in [app/http/kernel](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Http/Kernel.php) -> protected $routeMiddleware 
-
+# Model Relations at this moment:
+User model:
+    has many Order models
+JWTToken Model:
+    belongs to User Model
+Order model:
+    belongs to User model
+    belongs to OrderStatus model
+    belongs to Payment model
+    has many Product query through jsonb
+Payment model:
+    has many Order models
+    belongs to User model
+Product model:
+    belongs to Category model
+    has many Order models through wher In
+Category model:
+    belongs to product
+OrderStatus model:
+    has many Order models
 # [Migrations](https://github.com/Quisui/buckhill-challenge/tree/develop/database/migrations)
 - First step we are going to check the migrations following the structure provided on the challenge
 ![image](https://user-images.githubusercontent.com/22399803/227690277-19cb7291-4dd9-4ee3-b8ae-cfed1835d6b1.png)
 - Second **[Seeders](https://github.com/Quisui/buckhill-challenge/tree/develop/database/seeders)**
   Currently not using all of them: 
-    Important to check [UserSeeder](https://github.com/Quisui/buckhill-challenge/blob/develop/database/seeders/UserSeeder.php)
+    $this->call(PaymentSeeder::class);
+    $this->call(UserSeeder::class);
+    $this->call(CategorySeeder::class);
+    $this->call(ProductSeeder::class);
+    $this->call(OrderStatusSeeder::class);
+    $this->call(OrderSeeder::class);
 - Third **[Factories](https://github.com/Quisui/buckhill-challenge/tree/develop/database/factories)**
-  Important for now check [UserFactory](https://github.com/Quisui/buckhill-challenge/blob/develop/database/factories/UserFactory.php)
     
 # UUID
 I've used the personal uuid trait: 
