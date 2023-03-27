@@ -29,7 +29,8 @@ So I've build the package that will send a webhook notification for the order st
 My package's name is: [quisui/order-basic-notification](https://github.com/Quisui/order-basic-notification)
 To use it on this or other projects you need to run:
 > composer require quisui/order-basic-notification
-Check package to see how's implemented in this project: [read](https://github.com/Quisui/order-basic-notification)
+
+<br> Check package to see how's implemented in this project: [read](https://github.com/Quisui/order-basic-notification)
 
 # Challenge Integration
 So as the challenge requirements the package was integrated to an observer like so:
