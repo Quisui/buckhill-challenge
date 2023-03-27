@@ -33,12 +33,12 @@ Check package to see how's implemented in this project: [read](https://github.co
 
 # Challenge Integration
 So as the challenge requirements the package was integrated to an observer like so:
-### **OrderObserver**
+### **[OrderObserver](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Observers/OrderObserver.php)**
 Any time that an order controller updates an order and the respective checks do their job, and the status order has been changed, we'll send a webhook to specific url.
 
-Check **[Order Controller]** for logic implementation
+Check **[Order Controller](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Http/Controllers/Api/V1/OrderController.php)** for logic implementation
 
-### **Testing for this controller and possible bugs**
+### **[Testing](https://github.com/Quisui/buckhill-challenge/blob/develop/tests/Feature/Api/V1/Controllers/OrderControllerTest.php) for this controller and possible bugs**
 
 I've implemented testing for the order controller to ensure the whole functionality, I didn't tested the package here because that's why we test the package before
 
