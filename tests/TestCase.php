@@ -26,7 +26,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->withoutVite();
 
-        $this->user = $this->createUser(false, false, ['password' => 'user']);
+        $this->user = $this->createUser(false, false, ['password' => Hash::make('userpassword')]);
         $this->admin = $this->createUser(isAdmin: true);
         $this->marketingUser = $this->createUser(isMarketing: true);
         $this->marketingAdminUser = $this->createUser(isAdmin: true, isMarketing: true);
@@ -64,7 +64,6 @@ abstract class TestCase extends BaseTestCase
                 }
             }
         }
-
         return User::factory()->create($data);
     }
 

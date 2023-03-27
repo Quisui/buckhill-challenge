@@ -119,6 +119,65 @@
                 ]
             }
         },
+        "/admin/forgot-password": {
+            "put": {
+                "tags": [
+                    "Admin/Auth"
+                ],
+                "summary": "Update your password",
+                "operationId": "1ea679db2b33c1b439e3f50d4f541cd7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "current_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "404": {
+                        "description": "Not created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
         "/register/users": {
             "post": {
                 "tags": [
@@ -195,7 +254,7 @@
                     "Admin/Auth"
                 ],
                 "summary": "Sign in",
-                "description": "Login by email, password",
+                "description": "Login by email, password, both user and admin uses this endpoint so te behavior will change just on the route name, remember, you need to send your bearer token",
                 "operationId": "authLogin",
                 "requestBody": {
                     "description": "Pass user credentials",
@@ -246,9 +305,139 @@
                     }
                 }
             }
+        },
+        "/admin/logout": {
+            "post": {
+                "tags": [
+                    "Admin/Auth"
+                ],
+                "summary": "Sign in",
+                "description": "Logout your current user, both user and admin uses this endpoint so te behavior will change just on the route name, remember, you need to send your bearer token",
+                "operationId": "authLogout",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@buckhill.co.uk"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "204": {
+                        "description": "Success logout"
+                    },
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/user/forgot-password": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update your password",
+                "operationId": "c05f1d7cad4c5ce49a0305242f2498cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "current_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "404": {
+                        "description": "Not created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {
+        "responses": {
+            "500": {
+                "description": "Missing token"
+            }
+        },
         "securitySchemes": {
             "api_key": {
                 "type": "apiKey",

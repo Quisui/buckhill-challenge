@@ -43,12 +43,15 @@ class JwtGuard implements AuthGuard
         }
 
         $token = $this->getTokenFromRequest();
-
-        if (! $token) {
+        if (!$token) {
             $this->handleMissingToken();
         }
 
         $token = $this->validateToken($token);
+
+        if (is_null($token)) {
+            return $token;
+        }
 
         $this->enforceShortLivedTokens($token);
 
@@ -86,7 +89,11 @@ class JwtGuard implements AuthGuard
     public function validateStoredJWTExpiredTime($token)
     {
         $storedToken = JwtToken::with('user')->currentUser($token->user_id)->first();
-        if (! app()->environment('testing')) {
+        if (!app()->environment('testing')) {
+            if (empty($storedToken)) {
+                return null;
+            }
+
             if ($storedToken->isExpired()) {
                 abort(Response::HTTP_UNAUTHORIZED, 'Token expired, please renew your jwt');
             }
@@ -114,7 +121,8 @@ class JwtGuard implements AuthGuard
     {
         try {
             $decodedToken = TokenHelper::jwtDecode($token);
-            $this->validateStoredJWTExpiredTime($decodedToken);
+            $expired = $this->validateStoredJWTExpiredTime($decodedToken);
+            if (is_null($expired)) return null;
             return $decodedToken;
         } catch (\Firebase\JWT\ExpiredException $e) {
             return null; // Laravel will return a 401 Unauthenticated.
@@ -135,6 +143,10 @@ class JwtGuard implements AuthGuard
     private function enforceShortLivedTokens($token)
     {
         $maxMinutes = config('app.jwt_max_exp_minutes');
+        if (empty($token->exp)) {
+            throw new \UnexpectedValueException('Token exceeds maximum lifetime.');
+        }
+
         if ($token->exp > strtotime("+{$maxMinutes} minutes")) {
             $validMinutes = \Carbon\Carbon::createFromTimestamp($token->exp)->diffInMinutes();
             throw new \UnexpectedValueException('Token exceeds maximum lifetime. Token is valid for ' . $validMinutes . ' minutes, but max lifetime is ' . $maxMinutes . ' minutes.');

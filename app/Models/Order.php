@@ -18,10 +18,36 @@ class Order extends Model
         'payment_id',
         'user_id',
         'order_status_id',
-        'payment_id',
         'products',
         'address',
         'delivery_fee',
         'amount',
     ];
+
+    protected $casts = [
+        'products' => 'json',
+        'address' => 'json',
+        'amount' => 'float',
+        'deliery_fee' => 'float',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'uuid');
+    }
+
+    public function orderStatus()
+    {
+        return $this->belongsTo(OrderStatus::class, 'order_status_id', 'uuid');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function products()
+    {
+        return Product::whereIn('uuid', collect($this->products)->pluck('product'))->get();
+    }
 }

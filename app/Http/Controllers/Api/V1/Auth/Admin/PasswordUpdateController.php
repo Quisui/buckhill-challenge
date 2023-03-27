@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Auth;
+namespace App\Http\Controllers\Api\V1\Auth\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,17 +12,17 @@ class PasswordUpdateController extends Controller
 {
     /**
      * @OA\Put(
-     *     path="/user/forgot-password",
+     *     path="/admin/forgot-password",
      *     summary="Update your password",
      *     security={{"api_key": {}}},
-     *     tags={"User"},
+     *     tags={"Admin/Auth"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"password","password_confirmation"},
-     *             @OA\Property(property="password", type="string", format="password", example="userpassword"),
-     *             @OA\Property(property="password_confirmation", type="string", format="password", example="userpassword"),
-     *             @OA\Property(property="current_password", type="string", format="password", example="userpassword")
+     *             @OA\Property(property="password", type="string", format="password", example="password"),
+     *             @OA\Property(property="password_confirmation", type="string", format="password", example="password"),
+     *             @OA\Property(property="current_password", type="string", format="password", example="password")
      *         )
      *     ),
      *     @OA\Response(response="200", description="User created successfully"),
