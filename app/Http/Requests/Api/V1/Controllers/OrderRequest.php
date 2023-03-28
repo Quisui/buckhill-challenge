@@ -25,7 +25,7 @@ class OrderRequest extends FormRequest
             'order_status_id' => ['required', 'exists:order_statuses,uuid'],
             'products' => ['required', 'array'],
             'delivery_fee' => ['required', 'numeric'],
-            'amount' => ['required', 'numeric']
+            'amount' => ['required', 'numeric'],
         ];
     }
 }

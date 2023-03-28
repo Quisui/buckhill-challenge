@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Api\V1\SaveDocument;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Controllers\StoreFileRequest;
 use App\Models\File;
 use Illuminate\Http\Request;
 
@@ -24,8 +26,10 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFileRequest $request, SaveDocument $saveDocument)
     {
+        $saveDocument->execute($request->all());
+        return redirect(route('documents.index'));
     }
 
     /**

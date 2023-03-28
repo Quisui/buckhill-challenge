@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Controllers\OrderRequest;
+use App\Http\Resources\Api\V1\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use App\Http\Resources\Api\V1\OrderResource;
 
 class OrderController extends Controller
 {
@@ -26,7 +26,7 @@ class OrderController extends Controller
         $orders = Order::with(['user', 'orderStatus', 'payment'])->get();
 
         if (empty($orders)) {
-            throw new HttpException("Error Processing Request", Response::HTTP_NOT_FOUND);
+            throw new HttpException('Error Processing Request', Response::HTTP_NOT_FOUND);
         }
 
         return OrderResource::collection($orders);
@@ -89,7 +89,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return (OrderResource::make($order));
+        return OrderResource::make($order);
     }
 
     /**
@@ -160,12 +160,12 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $status = $order->delete();
-        if (!$status) {
+        if (! $status) {
             return response()->json([
                 'errors' => [
                     'general' => [
-                        'Couldn\'t remove the order, please check if this order has an some pending status'
-                    ]
+                        'Couldn\'t remove the order, please check if this order has an some pending status',
+                    ],
                 ],
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

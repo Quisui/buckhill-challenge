@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0530d76aebc8cac13898690d6de40ad2",
+    "content-hash": "7c7760dcda33e7a1efd695d0dcbcd56b",
     "packages": [
         {
             "name": "brick/math",
@@ -3050,10 +3050,16 @@
         {
             "name": "quisui/order-basic-notification",
             "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Quisui/order-basic-notification.git",
+                "reference": "e9e531ea4b03ec8f2f6378ea55f8cc97154bd63e"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/quisui/order-basic-notification",
-                "reference": "ee6b8a73ca65e3d8e1f1207ef7a1c4bc417ca296"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Quisui/order-basic-notification/zipball/e9e531ea4b03ec8f2f6378ea55f8cc97154bd63e",
+                "reference": "e9e531ea4b03ec8f2f6378ea55f8cc97154bd63e",
+                "shasum": ""
             },
             "type": "library",
             "extra": {
@@ -3064,13 +3070,14 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Quisui\\OrderBasicNotification\\": "src/"
-                },
                 "files": [
                     "src/NotificationOrderStatusUpdater.php"
-                ]
+                ],
+                "psr-4": {
+                    "Quisui\\OrderBasicNotification\\": "src/"
+                }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3081,10 +3088,11 @@
                 }
             ],
             "description": "To ensure that we will not miss any sale and to keep track of the statuses of the orders a basic notification service needs to be created.",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/Quisui/order-basic-notification/issues",
+                "source": "https://github.com/Quisui/order-basic-notification/tree/0.0.1"
+            },
+            "time": "2023-03-26T01:52:32+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3310,6 +3318,57 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
+        },
+        {
+            "name": "smalot/pdfparser",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smalot/pdfparser.git",
+                "reference": "43a1c145b91d83f6b9c6fb4e5c2e6b274d2a0a17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smalot/pdfparser/zipball/43a1c145b91d83f6b9c6fb4e5c2e6b274d2a0a17",
+                "reference": "43a1c145b91d83f6b9c6fb4e5c2e6b274d2a0a17",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-zlib": "*",
+                "php": ">=7.1",
+                "symfony/polyfill-mbstring": "^1.18"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Smalot\\PdfParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastien MALOT",
+                    "email": "sebastien@malot.fr"
+                }
+            ],
+            "description": "Pdf parser library. Can read and extract information from pdf file.",
+            "homepage": "https://www.pdfparser.org",
+            "keywords": [
+                "extract",
+                "parse",
+                "parser",
+                "pdf",
+                "text"
+            ],
+            "support": {
+                "issues": "https://github.com/smalot/pdfparser/issues",
+                "source": "https://github.com/smalot/pdfparser/tree/v2.4.0"
+            },
+            "time": "2023-03-14T08:13:58+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",
