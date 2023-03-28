@@ -44,7 +44,7 @@ Check **[Order Controller](https://github.com/Quisui/buckhill-challenge/blob/dev
 I've implemented testing for the order controller to ensure the whole functionality, I didn't tested the package here because that's why we test the package before
 
 # PHP insights <br>
-<img width="500" alt="image" src="https://user-images.githubusercontent.com/22399803/228089729-2c6c6718-ba97-43b0-80a8-85b634cfa88b.png"> <br>
+<img width="550" alt="image" src="https://user-images.githubusercontent.com/22399803/228094129-52b7d943-73ba-4e34-bde6-143a4bd25593.png"> <br>
 
 At this moment the provided score with this package [nunomaduro/phpinsights](https://github.com/nunomaduro/phpinsights)
 
@@ -61,6 +61,11 @@ Check ➡ **App/Services/Api/V1/DocumentReader*** [link](https://github.com/Quis
 - Depending on the specific type of file that you want to add or read you could  implement or add more methods in the Documentinterface [link](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Services/Api/V1/DocumentReader/DocumentInterface.php)
 - Testing to check factory method is working: [Tests/unit/Api/v1/DocumentFactoryCanBeResolvedTest](https://github.com/Quisui/buckhill-challenge/blob/develop/tests/Unit/Api/V1/DocumentFactoryCanBeResolvedTest.php)
 - Factory solver is in [config/filereader](https://github.com/Quisui/buckhill-challenge/blob/develop/config/filereader.php)
+- Lastly in the [FileController](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Http/Controllers/Api/V1/FileController.php) we can consume the store to store any file that the factory supports at this moment.
+- Consume the action to save the document|file [execute](https://github.com/Quisui/buckhill-challenge/blob/develop/app/Actions/Api/V1/SaveDocument.php)
+<br>
+🗒️*Note: Not all functionality was completed.*
+
 # JWT
 As the implementation requested I've implemented a complete JWT Auth system using use [Firebase\JWT\JWT](https://github.com/firebase/php-jwt);
 - This includes and makes the jwt as a valid auth token inside the system
