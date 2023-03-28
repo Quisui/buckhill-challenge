@@ -15,10 +15,10 @@
 13) now you can consume the api
 
 #env
-JWT_SECRET: testKey_encode
-JWT_ALGS: "HS256"
-JWT_MAX_EXP_MINUTES: 60
-WEBHOOK_URL: http://webhook.site/81872e1a-5b97-4a0d-b32a-55365cc1b774
+JWT_SECRET: testKey_encode <br>
+JWT_ALGS: "HS256" <br>
+JWT_MAX_EXP_MINUTES: 60 <br>
+WEBHOOK_URL: http://webhook.site/81872e1a-5b97-4a0d-b32a-55365cc1b774 <br>
 
 # Docker file
 
