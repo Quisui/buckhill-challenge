@@ -1,6 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\Admin\UserController;
+use App\Http\Controllers\Api\V1\Auth\Admin\PasswordUpdateController;
+use App\Http\Controllers\Api\V1\Auth\Admin\RegisterController;
+use App\Http\Controllers\Api\V1\Auth\LoginController;
+use App\Http\Controllers\Api\V1\Auth\LogoutController;
+use App\Http\Controllers\Api\V1\Auth\PasswordUpdateController as AuthPasswordUpdateController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OrderStatusController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +22,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('admin/login', LoginController::class);
+Route::post('user/login', LoginController::class);
+
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
+        Route::put('forgot-password', PasswordUpdateController::class);
+        Route::post('register/users', RegisterController::class);
+        Route::apiResource('create', UserController::class);
+        Route::post('logout', LogoutController::class);
+    });
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('user/logout', LogoutController::class);
+        Route::put('forgot-password', AuthPasswordUpdateController::class);
+    });
+    Route::apiResource('order', OrderController::class);
+    Route::apiResource('product', ProductController::class);
+    Route::apiResource('order-status', OrderStatusController::class);
 });

@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Helpers\TokenHelper;
+use App\Traits\Uuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +15,10 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use Uuid;
+    public $incrementing = false;
+    protected $primaryKey = 'uuid';
+    protected $uuidKey = 'uuid';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +26,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'avatar',
+        'address',
     ];
 
     /**
@@ -41,4 +52,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function createJWT()
+    {
+        $token = TokenHelper::jwtEncode([
+            'user_id' => $this->uuid,
+            'iss' => config('app.url'),
+            'exp' => Carbon::now()->addMinutes(config('app.jwt_max_exp_minutes'))->getTimestamp(),
+        ]);
+        $tokenExpiry = Carbon::createFromTimestamp(TokenHelper::jwtDecode($token)->exp);
+
+        return [
+            'token' => $token,
+            'token_expiry_text' => $tokenExpiry->diffForHumans(),
+            'token_expiry_seconds' => $tokenExpiry->diffInSeconds(),
+        ];
+    }
+
+    public function scopeAvoidMe($query)
+    {
+        return $query->whereNotIn('uuid', [auth()->user()->uuid]);
+    }
+
+    public function jwtTokens()
+    {
+        return $this->hasMany(JwtToken::class, 'user_id', 'uuid');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
